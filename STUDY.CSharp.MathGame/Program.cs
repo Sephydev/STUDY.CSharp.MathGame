@@ -1,4 +1,6 @@
-﻿game();
+﻿Random rand = new Random();
+
+game();
 
 void game()
 {
@@ -99,24 +101,67 @@ void gameHistory()
 
 void mathOperation (char mathOperator)
 {
-    Random rand = new Random();
+    int[] numbers = numbersGenerator(mathOperator); 
+    int result = 0;
+    int userInput;
 
-    int num1 = 0;
-    int num2 = rand.Next(0, 10);
-    bool resultIsInt = false;
-
-    if (mathOperator == '/')
-        while (!resultIsInt)
-        {
-            num1 = rand.Next(0, 100);
-            resultIsInt = num1 % num2 == 0;
-        }
-    else
-        num1 = rand.Next(0, 10);
+    switch (mathOperator)
+    {
+        case '+':
+            result = numbers[0] + numbers[1];
+            break;
+        case '-':
+            result = numbers[0] - numbers[1];
+            break;
+        case '*':
+            result = numbers[0] * numbers[1];
+            break;
+        case '/':
+            result = numbers[0] / numbers[1];
+            break;
+    }
 
     Console.Clear();
-    Console.WriteLine($"{num1} {mathOperator} {num2} = ?");
-    Console.ReadLine();
+    Console.WriteLine($"{numbers[0]} {mathOperator} {numbers[1]} = ?");
+    
+    if (int.TryParse(userInputReading(), out userInput))
+    {
+        if (userInput == result)
+        {
+            Console.WriteLine("You won!");
+            Console.ReadLine();
+        }
+        else
+        {
+            Console.WriteLine("You lose...");
+            Console.ReadLine();
+        }
+    }
+}
+
+int[] numbersGenerator(char mathOperator)
+{
+    int[] numbers = {0, 0};
+    bool resultIsInt = false;
+
+    do
+    {
+        if (mathOperator == '/')
+            numbers[0] = rand.Next(0, 100);
+        else
+            numbers[0] = rand.Next(0, 10);
+
+        do
+        {
+            numbers[1] = rand.Next(0, 10);
+        } while (mathOperator == '/' && numbers[1] == 0);
+
+        if (mathOperator == '/')
+            resultIsInt = numbers[0] % numbers[1] == 0;
+
+    } while (!resultIsInt && mathOperator == '/');
+
+    return numbers;
 }
 
 void invalidOption ()
