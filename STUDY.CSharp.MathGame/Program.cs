@@ -25,8 +25,7 @@ void game()
                 Console.ReadLine();
                 break;
             default:
-                Console.WriteLine("Please enter a valid option. (Press Enter to return to the Main Menu.)");
-                Console.ReadLine();
+                invalidOption();
                 break;
         }
     }
@@ -61,12 +60,51 @@ string userInputReading()
 void newGame()
 {
     string[] newGameChoices = { "Addition", "Subtraction", "Multiplication", "Division", "Main Menu" };
-    menuDisplay(newGameChoices);
-    Console.ReadLine();
+    bool running = true;
+
+    while (running)
+    {
+        menuDisplay(newGameChoices);
+        string newGameChoice = userInputReading();
+
+        switch (newGameChoice)
+        {
+            case "addition":
+                mathOperation('+');
+                break;
+            case "subtraction":
+                mathOperation('-');
+                break;
+            case "multiplication":
+                mathOperation('*');
+                break;
+            case "division":
+                mathOperation('/');
+                break;
+            case "main menu":
+                running = false;
+                break;
+            default:
+                invalidOption();
+                break;
+        }
+    }
 }
 
 void gameHistory()
 {
     Console.WriteLine("'Game History' under construction. (Press Enter to return to the Main Menu.)");
+    Console.ReadLine();
+}
+
+void mathOperation (char mathOperator)
+{
+    Console.WriteLine($"Math Operation is under construction. (Press Enter to return to the New Game Menu.)");
+    Console.ReadLine();
+}
+
+void invalidOption ()
+{
+    Console.WriteLine("Please enter a valid option. (Press Enter to return to the previous Menu.)");
     Console.ReadLine();
 }
