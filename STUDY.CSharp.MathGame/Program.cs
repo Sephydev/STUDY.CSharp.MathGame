@@ -60,7 +60,8 @@ string userInputReading()
 
 void newGame()
 {
-    Console.WriteLine("'New Game' under construnction. (Press Enter to return to the Main Menu.)");
+    string[] newGameChoices = { "Addition", "Subtraction", "Multiplication", "Division", "Main Menu" };
+    menuDisplay(newGameChoices);
     Console.ReadLine();
 }
 
