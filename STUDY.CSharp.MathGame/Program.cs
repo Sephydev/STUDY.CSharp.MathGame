@@ -1,44 +1,71 @@
-﻿string? readInput;
-string mainMenuChoice = "";
+﻿game();
 
-while (!mainMenuChoice.Equals("exit"))
+void game()
+{
+    string[] mainMenuChoices = { "New Game", "Game History", "Exit" };
+    string mainMenuChoice = "";
+    bool running = true;
+
+    while (running)
+    {
+        menuDisplay(mainMenuChoices);
+        mainMenuChoice = userInputReading();
+
+        switch (mainMenuChoice)
+        {
+            case "new game":
+                newGame();
+                break;
+            case "game history":
+                gameHistory();
+                break;
+            case "exit":
+                running = false;
+                Console.WriteLine("See you next time! (Press Enter to exit.)");
+                Console.ReadLine();
+                break;
+            default:
+                Console.WriteLine("Please enter a valid option. (Press Enter to return to the Main Menu.)");
+                Console.ReadLine();
+                break;
+        }
+    }
+}
+
+void menuDisplay(string[] menuChoices)
 {
     Console.Clear();
 
     Console.WriteLine("Please enter one of the following choices:");
-    Console.WriteLine("  - New Game");
-    Console.WriteLine("  - Game History");
-    Console.WriteLine("  - Exit");
+    foreach(string choice in menuChoices)
+    {
+        Console.WriteLine($"  - {choice}");
+    }
+}
+
+string userInputReading()
+{
+    string? readInput;
+    string verifiedInput = "";
 
     readInput = Console.ReadLine();
-    if (readInput != "" && readInput != null)
+    if (readInput != null)
     {
-        mainMenuChoice = readInput.ToLower().Trim();
-    }
-    else
-    {
-        Console.WriteLine("Please enter a valid option. (Press Enter to return to the Main Menu.)");
-        Console.ReadLine();
-        continue;
+        verifiedInput = readInput.ToLower().Trim();
+        return verifiedInput;
     }
 
-    switch (mainMenuChoice)
-    {
-        case "new game":
-            Console.WriteLine("'New Game' under construnction. (Press Enter to return to the Main Menu.)");
-            Console.ReadLine();
-            break;
-        case "game history":
-            Console.WriteLine("'Game History' under construction. (Press Enter to return to the Main Menu.)");
-            Console.ReadLine();
-            break;
-        case "exit":
-            Console.WriteLine("See you next time! (Press Enter to exit.)");
-            Console.ReadLine();
-            break;
-        default:
-            Console.WriteLine("Please enter a valid option. (Press Enter to return to the Main Menu.)");
-            Console.ReadLine();
-            break;
-    }
+    return "";
+}
+
+void newGame()
+{
+    Console.WriteLine("'New Game' under construnction. (Press Enter to return to the Main Menu.)");
+    Console.ReadLine();
+}
+
+void gameHistory()
+{
+    Console.WriteLine("'Game History' under construction. (Press Enter to return to the Main Menu.)");
+    Console.ReadLine();
 }
