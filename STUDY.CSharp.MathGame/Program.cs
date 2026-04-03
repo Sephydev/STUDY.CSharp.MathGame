@@ -13,15 +13,32 @@ while (!mainMenuChoice.Equals("exit"))
     readInput = Console.ReadLine();
     if (readInput != "" && readInput != null)
     {
-        mainMenuChoice = readInput.ToLower();
-        Console.WriteLine($"You've entered '{mainMenuChoice}'. Press Enter to return to the Main Menu.");
-        Console.ReadLine();
+        mainMenuChoice = readInput.ToLower().Trim();
     }
     else
     {
-        Console.WriteLine("Please enter a valid option. Press Enter to return to the Main Menu.");
+        Console.WriteLine("Please enter a valid option. (Press Enter to return to the Main Menu.)");
         Console.ReadLine();
         continue;
     }
 
+    switch (mainMenuChoice)
+    {
+        case "new game":
+            Console.WriteLine("'New Game' under construnction. (Press Enter to return to the Main Menu.)");
+            Console.ReadLine();
+            break;
+        case "game history":
+            Console.WriteLine("'Game History' under construction. (Press Enter to return to the Main Menu.)");
+            Console.ReadLine();
+            break;
+        case "exit":
+            Console.WriteLine("See you next time! (Press Enter to exit.)");
+            Console.ReadLine();
+            break;
+        default:
+            Console.WriteLine("Please enter a valid option. (Press Enter to return to the Main Menu.)");
+            Console.ReadLine();
+            break;
+    }
 }
