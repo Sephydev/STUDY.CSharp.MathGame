@@ -99,7 +99,23 @@ void gameHistory()
 
 void mathOperation (char mathOperator)
 {
-    Console.WriteLine($"Math Operation is under construction. (Press Enter to return to the New Game Menu.)");
+    Random rand = new Random();
+
+    int num1 = 0;
+    int num2 = rand.Next(0, 10);
+    bool resultIsInt = false;
+
+    if (mathOperator == '/')
+        while (!resultIsInt)
+        {
+            num1 = rand.Next(0, 100);
+            resultIsInt = num1 % num2 == 0;
+        }
+    else
+        num1 = rand.Next(0, 10);
+
+    Console.Clear();
+    Console.WriteLine($"{num1} {mathOperator} {num2} = ?");
     Console.ReadLine();
 }
 
