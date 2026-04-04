@@ -101,24 +101,27 @@ void gameHistory()
 
 void mathOperation (char mathOperator)
 {
-    int[] numbers = numbersGenerator(mathOperator); 
-    int result = resultCalculation(numbers, mathOperator);
-    int userInput;
-
-    Console.Clear();
-    Console.WriteLine($"{numbers[0]} {mathOperator} {numbers[1]} = ?");
-    
-    if (int.TryParse(userInputReading(), out userInput))
+    for (int i = 0; i < 5; i++)
     {
-        if (userInput == result)
+        int[] numbers = numbersGenerator(mathOperator);
+        int result = resultCalculation(numbers, mathOperator);
+        int userInput;
+
+        Console.Clear();
+        Console.WriteLine($"{numbers[0]} {mathOperator} {numbers[1]} = ?");
+
+        if (int.TryParse(userInputReading(), out userInput))
         {
-            Console.WriteLine("You won!");
-            Console.ReadLine();
-        }
-        else
-        {
-            Console.WriteLine("You lose...");
-            Console.ReadLine();
+            if (userInput == result)
+            {
+                Console.WriteLine("You won!");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("You lose...");
+                Console.ReadLine();
+            }
         }
     }
 }
