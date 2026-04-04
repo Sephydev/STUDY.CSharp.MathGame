@@ -7,6 +7,7 @@ void game()
     string[] mainMenuChoices = { "New Game", "Game History", "Exit" };
     string mainMenuChoice = "";
     bool running = true;
+    List<string> previousGames = new List<string>();
 
     while (running)
     {
@@ -16,10 +17,10 @@ void game()
         switch (mainMenuChoice)
         {
             case "new game":
-                newGame();
+                newGame(previousGames);
                 break;
             case "game history":
-                gameHistory();
+                gameHistory(previousGames);
                 break;
             case "exit":
                 running = false;
@@ -59,7 +60,7 @@ string userInputReading()
     return "";
 }
 
-void newGame()
+void newGame(List<string> previousGames)
 {
     string[] newGameChoices = { "Addition", "Subtraction", "Multiplication", "Division", "Main Menu" };
     bool running = true;
@@ -72,16 +73,20 @@ void newGame()
         switch (newGameChoice)
         {
             case "addition":
-                mathOperation('+');
+                previousGames.Add("Addition | ");
+                mathOperation('+', previousGames);
                 break;
             case "subtraction":
-                mathOperation('-');
+                previousGames.Add("Subtraction | ");
+                mathOperation('-', previousGames);
                 break;
             case "multiplication":
-                mathOperation('*');
+                previousGames.Add("Multiplication | ");
+                mathOperation('*', previousGames);
                 break;
             case "division":
-                mathOperation('/');
+                previousGames.Add("Division | ");
+                mathOperation('/', previousGames);
                 break;
             case "main menu":
                 running = false;
@@ -93,13 +98,18 @@ void newGame()
     }
 }
 
-void gameHistory()
+void gameHistory(List<string> previousGames)
 {
-    Console.WriteLine("'Game History' under construction. (Press Enter to return to the Main Menu.)");
+    Console.Clear();
+    foreach (string previousGame in previousGames)
+    {
+        Console.WriteLine(previousGame);
+    }
+    Console.WriteLine("\n(Press Enter to return to the Main Menu)");
     Console.ReadLine();
 }
 
-void mathOperation (char mathOperator)
+void mathOperation (char mathOperator, List<string> previousGames)
 {
     int score = 0;
 
@@ -128,6 +138,8 @@ void mathOperation (char mathOperator)
             }
         }
     }
+
+    previousGames[previousGames.Count - 1] += $"Score: {score}";
 }
 
 int[] numbersGenerator(char mathOperator)
