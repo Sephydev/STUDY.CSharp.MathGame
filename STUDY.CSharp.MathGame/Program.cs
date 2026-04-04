@@ -102,24 +102,8 @@ void gameHistory()
 void mathOperation (char mathOperator)
 {
     int[] numbers = numbersGenerator(mathOperator); 
-    int result = 0;
+    int result = resultCalculation(numbers, mathOperator);
     int userInput;
-
-    switch (mathOperator)
-    {
-        case '+':
-            result = numbers[0] + numbers[1];
-            break;
-        case '-':
-            result = numbers[0] - numbers[1];
-            break;
-        case '*':
-            result = numbers[0] * numbers[1];
-            break;
-        case '/':
-            result = numbers[0] / numbers[1];
-            break;
-    }
 
     Console.Clear();
     Console.WriteLine($"{numbers[0]} {mathOperator} {numbers[1]} = ?");
@@ -162,6 +146,28 @@ int[] numbersGenerator(char mathOperator)
     } while (!resultIsInt && mathOperator == '/');
 
     return numbers;
+}
+
+int resultCalculation(int[]numbers, char mathOperator)
+{
+    int result = 0;
+    switch (mathOperator)
+    {
+        case '+':
+            result = numbers[0] + numbers[1];
+            break;
+        case '-':
+            result = numbers[0] - numbers[1];
+            break;
+        case '*':
+            result = numbers[0] * numbers[1];
+            break;
+        case '/':
+            result = numbers[0] / numbers[1];
+            break;
+    }
+
+    return result;
 }
 
 void invalidOption ()
