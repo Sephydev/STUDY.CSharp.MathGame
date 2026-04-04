@@ -6,10 +6,9 @@ void game()
 {
     string[] mainMenuChoices = { "New Game", "Game History", "Exit" };
     string mainMenuChoice = "";
-    bool running = true;
     List<string> previousGames = new List<string>();
 
-    while (running)
+    while (true)
     {
         menuDisplay(mainMenuChoices);
         mainMenuChoice = userInputReading();
@@ -23,10 +22,9 @@ void game()
                 gameHistory(previousGames);
                 break;
             case "exit":
-                running = false;
                 Console.WriteLine("See you next time! (Press Enter to exit.)");
                 Console.ReadLine();
-                break;
+                return;
             default:
                 invalidOption();
                 break;
@@ -63,38 +61,40 @@ string userInputReading()
 void newGame(List<string> previousGames)
 {
     string[] newGameChoices = { "Addition", "Subtraction", "Multiplication", "Division", "Main Menu" };
-    bool running = true;
 
-    while (running)
+    while (true)
     {
         menuDisplay(newGameChoices);
         string newGameChoice = userInputReading();
+        string mathOperator = "";
+        string operation = "";
 
         switch (newGameChoice)
         {
             case "addition":
-                previousGames.Add("Addition | ");
-                mathOperation('+', previousGames);
+                mathOperator = "+";
+                operation = "Addition | ";
                 break;
             case "subtraction":
-                previousGames.Add("Subtraction | ");
-                mathOperation('-', previousGames);
+                mathOperator = "-";
+                operation = "Subtraction | ";
                 break;
             case "multiplication":
-                previousGames.Add("Multiplication | ");
-                mathOperation('*', previousGames);
+                mathOperator = "*";
+                operation = "Multiplication | ";
                 break;
             case "division":
-                previousGames.Add("Division | ");
-                mathOperation('/', previousGames);
+                mathOperator = "/";
+                operation = "Division | ";
                 break;
             case "main menu":
-                running = false;
-                break;
+                return;
             default:
                 invalidOption();
-                break;
+                continue;
         }
+        previousGames.Add(operation);
+        mathOperation(mathOperator, previousGames);
     }
 }
 
@@ -109,7 +109,7 @@ void gameHistory(List<string> previousGames)
     Console.ReadLine();
 }
 
-void mathOperation (char mathOperator, List<string> previousGames)
+void mathOperation (string mathOperator, List<string> previousGames)
 {
     int score = 0;
 
@@ -118,9 +118,8 @@ void mathOperation (char mathOperator, List<string> previousGames)
         int[] numbers = numbersGenerator(mathOperator);
         int result = resultCalculation(numbers, mathOperator);
         int userInput;
-        bool running = true;
 
-        while (running)
+        while (true)
         {
             Console.Clear();
             Console.WriteLine($"Score: {score}\n");
@@ -136,16 +135,15 @@ void mathOperation (char mathOperator, List<string> previousGames)
             if (userInput == result)
             {
                 score++;
-                running = false;
                 Console.WriteLine("Correct ! (Press Enter to continue)");
-                Console.ReadLine();
             }
             else
             {
-                running = false;
                 Console.WriteLine("Wrong... (Press Enter to continue)");
-                Console.ReadLine();
             }
+
+            Console.ReadLine();
+            break;
         }
 
     }
@@ -153,14 +151,14 @@ void mathOperation (char mathOperator, List<string> previousGames)
     previousGames[previousGames.Count - 1] += $"Score: {score}";
 }
 
-int[] numbersGenerator(char mathOperator)
+int[] numbersGenerator(string mathOperator)
 {
     int[] numbers = {0, 0};
     bool resultIsInt = false;
 
     do
     {
-        if (mathOperator == '/')
+        if (mathOperator == "/")
             numbers[0] = rand.Next(0, 101);
         else
             numbers[0] = rand.Next(0, 10);
@@ -168,31 +166,31 @@ int[] numbersGenerator(char mathOperator)
         do
         {
             numbers[1] = rand.Next(0, 10);
-        } while (mathOperator == '/' && numbers[1] == 0);
+        } while (mathOperator == "/" && numbers[1] == 0);
 
-        if (mathOperator == '/')
+        if (mathOperator == "/")
             resultIsInt = numbers[0] % numbers[1] == 0;
 
-    } while (!resultIsInt && mathOperator == '/');
+    } while (!resultIsInt && mathOperator == "/");
 
     return numbers;
 }
 
-int resultCalculation(int[]numbers, char mathOperator)
+int resultCalculation(int[]numbers, string mathOperator)
 {
     int result = 0;
     switch (mathOperator)
     {
-        case '+':
+        case "+":
             result = numbers[0] + numbers[1];
             break;
-        case '-':
+        case "-":
             result = numbers[0] - numbers[1];
             break;
-        case '*':
+        case "*":
             result = numbers[0] * numbers[1];
             break;
-        case '/':
+        case "/":
             result = numbers[0] / numbers[1];
             break;
     }
