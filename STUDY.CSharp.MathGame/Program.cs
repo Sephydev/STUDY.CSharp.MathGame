@@ -118,25 +118,36 @@ void mathOperation (char mathOperator, List<string> previousGames)
         int[] numbers = numbersGenerator(mathOperator);
         int result = resultCalculation(numbers, mathOperator);
         int userInput;
+        bool running = true;
 
-        Console.Clear();
-        Console.WriteLine($"Score: {score}\n");
-        Console.WriteLine($"{numbers[0]} {mathOperator} {numbers[1]} = ?");
-
-        if (int.TryParse(userInputReading(), out userInput))
+        while (running)
         {
+            Console.Clear();
+            Console.WriteLine($"Score: {score}\n");
+            Console.WriteLine($"{numbers[0]} {mathOperator} {numbers[1]} = ?");
+
+            if (!int.TryParse(userInputReading(), out userInput))
+            {
+                Console.WriteLine("Please enter a valid number. (Press Enter to continue)");
+                Console.ReadLine();
+                continue;
+            }    
+
             if (userInput == result)
             {
                 score++;
+                running = false;
                 Console.WriteLine("Correct ! (Press Enter to continue)");
                 Console.ReadLine();
             }
             else
             {
+                running = false;
                 Console.WriteLine("Wrong... (Press Enter to continue)");
                 Console.ReadLine();
             }
         }
+
     }
 
     previousGames[previousGames.Count - 1] += $"Score: {score}";
@@ -150,7 +161,7 @@ int[] numbersGenerator(char mathOperator)
     do
     {
         if (mathOperator == '/')
-            numbers[0] = rand.Next(0, 100);
+            numbers[0] = rand.Next(0, 101);
         else
             numbers[0] = rand.Next(0, 10);
 
