@@ -101,6 +101,8 @@ void gameHistory()
 
 void mathOperation (char mathOperator)
 {
+    int score = 0;
+
     for (int i = 0; i < 5; i++)
     {
         int[] numbers = numbersGenerator(mathOperator);
@@ -108,18 +110,20 @@ void mathOperation (char mathOperator)
         int userInput;
 
         Console.Clear();
+        Console.WriteLine($"Score: {score}\n");
         Console.WriteLine($"{numbers[0]} {mathOperator} {numbers[1]} = ?");
 
         if (int.TryParse(userInputReading(), out userInput))
         {
             if (userInput == result)
             {
-                Console.WriteLine("You won!");
+                score++;
+                Console.WriteLine("Correct ! (Press Enter to continue)");
                 Console.ReadLine();
             }
             else
             {
-                Console.WriteLine("You lose...");
+                Console.WriteLine("Wrong... (Press Enter to continue)");
                 Console.ReadLine();
             }
         }
