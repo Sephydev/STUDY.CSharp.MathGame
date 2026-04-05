@@ -73,7 +73,7 @@ void newGame(List<string> previousGames)
         {
             case "addition":
                 mathOperator = "+";
-                operation = "Addition | ";
+                operation = "Addition";
                 break;
             case "subtraction":
                 mathOperator = "-";
@@ -94,10 +94,37 @@ void newGame(List<string> previousGames)
                 continue;
         }
         previousGames.Add(operation);
-        mathOperation(mathOperator, previousGames);
+        levelDifficultyMenu(mathOperator, previousGames);
     }
 }
 
+void levelDifficultyMenu(string mathOperator, List<string> previousGames)
+{
+    string[] difficultyLevels = { "Easy", "Normal", "Hard", "Operation Choice Menu" };
+    string userChoice;
+    string difficulty = "";
+
+    while (true)
+    {
+        menuDisplay(difficultyLevels);
+        userChoice = userInputReading();
+
+        switch (userChoice)
+        {
+            case "easy":
+            case "normal":
+            case "hard":
+                difficulty = userChoice;
+                break;
+            case "operation choice menu":
+                return;
+            default:
+                invalidOption();
+                continue;
+        }
+        mathOperation(mathOperator, difficulty, previousGames);
+    }
+}
 void gameHistory(List<string> previousGames)
 {
     Console.Clear();
@@ -109,13 +136,13 @@ void gameHistory(List<string> previousGames)
     Console.ReadLine();
 }
 
-void mathOperation (string mathOperator, List<string> previousGames)
+void mathOperation (string mathOperator, string difficulty, List<string> previousGames)
 {
     int score = 0;
 
     for (int i = 0; i < 5; i++)
     {
-        int[] numbers = numbersGenerator(mathOperator);
+        int[] numbers = numbersGenerator(mathOperator, difficulty);
         int result = resultCalculation(numbers, mathOperator);
         int userInput;
 
@@ -148,24 +175,29 @@ void mathOperation (string mathOperator, List<string> previousGames)
 
     }
 
-    previousGames[previousGames.Count - 1] += $"Score: {score}";
+    Console.WriteLine($"Your final score: {score} / 5 (Press Enter to continue)");
+    Console.ReadLine();
+
+    previousGames[previousGames.Count - 1] += $" | Score: {score}";
 }
 
-int[] numbersGenerator(string mathOperator)
+int[] numbersGenerator(string mathOperator, string difficulty)
 {
     int[] numbers = {0, 0};
     bool resultIsInt = false;
+
+    int max = difficulty == "easy" ? 10 : difficulty == "normal" ? 51 : 101;
 
     do
     {
         if (mathOperator == "/")
             numbers[0] = rand.Next(0, 101);
         else
-            numbers[0] = rand.Next(0, 10);
+            numbers[0] = rand.Next(0, max);
 
         do
         {
-            numbers[1] = rand.Next(0, 10);
+            numbers[1] = rand.Next(0, max);
         } while (mathOperator == "/" && numbers[1] == 0);
 
         if (mathOperator == "/")
