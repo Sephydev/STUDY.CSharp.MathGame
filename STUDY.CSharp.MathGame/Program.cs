@@ -77,15 +77,15 @@ void newGame(List<string> previousGames)
                 break;
             case "subtraction":
                 mathOperator = "-";
-                operation = "Subtraction | ";
+                operation = "Subtraction";
                 break;
             case "multiplication":
                 mathOperator = "*";
-                operation = "Multiplication | ";
+                operation = "Multiplication";
                 break;
             case "division":
                 mathOperator = "/";
-                operation = "Division | ";
+                operation = "Division";
                 break;
             case "main menu":
                 return;
