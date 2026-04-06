@@ -192,7 +192,7 @@ void mathOperation (string mathOperator, string difficulty, List<string> previou
     second = 0;
 }
 
-void onTimedEvent(Object source, ElapsedEventArgs e)
+void onTimedEvent(Object? source, ElapsedEventArgs e)
 {
     second += 1;
 }
