@@ -95,12 +95,11 @@ void newGame(List<string> previousGames)
                 invalidOption();
                 continue;
         }
-        previousGames.Add(operation);
-        levelDifficultyMenu(mathOperator, previousGames);
+        levelDifficultyMenu(mathOperator, previousGames, operation);
     }
 }
 
-void levelDifficultyMenu(string mathOperator, List<string> previousGames)
+void levelDifficultyMenu(string mathOperator, List<string> previousGames, string operation)
 {
     string[] difficultyLevels = { "Easy", "Normal", "Hard", "Operation Choice Menu" };
     string userChoice;
@@ -124,7 +123,7 @@ void levelDifficultyMenu(string mathOperator, List<string> previousGames)
                 invalidOption();
                 continue;
         }
-        mathOperation(mathOperator, difficulty, previousGames);
+        mathOperation(mathOperator, difficulty, previousGames, operation);
     }
 }
 void gameHistory(List<string> previousGames)
@@ -138,7 +137,7 @@ void gameHistory(List<string> previousGames)
     Console.ReadLine();
 }
 
-void mathOperation (string mathOperator, string difficulty, List<string> previousGames)
+void mathOperation (string mathOperator, string difficulty, List<string> previousGames, string operation)
 {
     System.Timers.Timer timer = new System.Timers.Timer(1000);
 
@@ -188,7 +187,7 @@ void mathOperation (string mathOperator, string difficulty, List<string> previou
     Console.WriteLine($"Your final score: {score} / 5 | Your time : {second} sec. (Press Enter to continue)");
     Console.ReadLine();
 
-    previousGames[previousGames.Count - 1] += $" | Difficulty: {difficulty} | Score: {score} | Time : {second} ";
+    previousGames.Add($"{operation} | Difficulty: {difficulty} | Score: {score} | Time : {second} ");
 
     second = 0;
 }
