@@ -62,7 +62,7 @@ string userInputReading()
 
 void newGame(List<string> previousGames)
 {
-    string[] newGameChoices = { "Addition", "Subtraction", "Multiplication", "Division", "Main Menu" };
+    string[] newGameChoices = { "Addition", "Subtraction", "Multiplication", "Division", "Random Operation", "Main Menu" };
 
     while (true)
     {
@@ -88,6 +88,9 @@ void newGame(List<string> previousGames)
             case "division":
                 mathOperator = "/";
                 operation = "Division";
+                break;
+            case "random operation":
+                operation = "Random operation";
                 break;
             case "main menu":
                 return;
@@ -148,6 +151,11 @@ void mathOperation (string mathOperator, string difficulty, List<string> previou
 
     for (int i = 0; i < 5; i++)
     {
+        if (operation.Equals("Random operation"))
+        {
+            mathOperator = operatorGenerator();
+        }
+
         int[] numbers = numbersGenerator(mathOperator, difficulty);
         int result = resultCalculation(numbers, mathOperator);
         int userInput;
@@ -190,6 +198,23 @@ void mathOperation (string mathOperator, string difficulty, List<string> previou
     previousGames.Add($"{operation} | Difficulty: {difficulty} | Score: {score} | Time : {second} ");
 
     second = 0;
+}
+
+string operatorGenerator()
+{
+    int randomNum = rand.Next(0, 4);
+
+    switch (randomNum)
+    {
+        case 0:
+            return "+";
+        case 1:
+            return "-";
+        case 2:
+            return "*";
+        default:
+            return "/";
+    }
 }
 
 void onTimedEvent(Object? source, ElapsedEventArgs e)
