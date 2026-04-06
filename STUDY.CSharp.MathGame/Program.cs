@@ -178,7 +178,7 @@ void mathOperation (string mathOperator, string difficulty, List<string> previou
     Console.WriteLine($"Your final score: {score} / 5 (Press Enter to continue)");
     Console.ReadLine();
 
-    previousGames[previousGames.Count - 1] += $" | Score: {score}";
+    previousGames[previousGames.Count - 1] += $" | Difficulty: {difficulty} | Score: {score}";
 }
 
 int[] numbersGenerator(string mathOperator, string difficulty)
