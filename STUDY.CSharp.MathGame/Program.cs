@@ -1,4 +1,8 @@
-﻿Random rand = new Random();
+﻿using System.Timers;
+
+Random rand = new Random();
+System.Timers.Timer timer = new System.Timers.Timer(1000);
+int second = 0;
 
 game();
 
@@ -140,6 +144,9 @@ void mathOperation (string mathOperator, string difficulty, List<string> previou
 {
     int score = 0;
 
+    timer.Start();
+    timer.Elapsed += onTimedEvent;
+
     for (int i = 0; i < 5; i++)
     {
         int[] numbers = numbersGenerator(mathOperator, difficulty);
@@ -175,10 +182,18 @@ void mathOperation (string mathOperator, string difficulty, List<string> previou
 
     }
 
-    Console.WriteLine($"Your final score: {score} / 5 (Press Enter to continue)");
+    timer.Stop();
+    timer.Dispose();
+
+    Console.WriteLine($"Your final score: {score} / 5 | Your time : {second} sec. (Press Enter to continue)");
     Console.ReadLine();
 
-    previousGames[previousGames.Count - 1] += $" | Difficulty: {difficulty} | Score: {score}";
+    previousGames[previousGames.Count - 1] += $" | Difficulty: {difficulty} | Score: {score} | Time : {second} ";
+}
+
+void onTimedEvent(Object source, ElapsedEventArgs e)
+{
+    second += 1;
 }
 
 int[] numbersGenerator(string mathOperator, string difficulty)
