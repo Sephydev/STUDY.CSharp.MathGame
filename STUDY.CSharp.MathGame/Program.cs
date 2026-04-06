@@ -1,8 +1,6 @@
 ﻿using System.Timers;
 
-Random rand = new Random();
-System.Timers.Timer timer = new System.Timers.Timer(1000);
-int second = 0;
+Random rand = new Random();int second = 0;
 
 game();
 
@@ -142,6 +140,8 @@ void gameHistory(List<string> previousGames)
 
 void mathOperation (string mathOperator, string difficulty, List<string> previousGames)
 {
+    System.Timers.Timer timer = new System.Timers.Timer(1000);
+
     int score = 0;
 
     timer.Start();
@@ -189,6 +189,8 @@ void mathOperation (string mathOperator, string difficulty, List<string> previou
     Console.ReadLine();
 
     previousGames[previousGames.Count - 1] += $" | Difficulty: {difficulty} | Score: {score} | Time : {second} ";
+
+    second = 0;
 }
 
 void onTimedEvent(Object source, ElapsedEventArgs e)
