@@ -145,6 +145,7 @@ void mathOperation (string mathOperator, string difficulty, List<string> previou
     System.Timers.Timer timer = new System.Timers.Timer(1000);
 
     int score = 0;
+    string gameLogStart = "";
 
     timer.Start();
     timer.Elapsed += onTimedEvent;
@@ -154,6 +155,11 @@ void mathOperation (string mathOperator, string difficulty, List<string> previou
         if (operation.Equals("Random operation"))
         {
             mathOperator = operatorGenerator();
+            gameLogStart = $"{operation}\t";
+        }
+        else
+        {
+            gameLogStart = $"{operation}\t\t";
         }
 
         int[] numbers = numbersGenerator(mathOperator, difficulty);
@@ -195,7 +201,7 @@ void mathOperation (string mathOperator, string difficulty, List<string> previou
     Console.WriteLine($"Your final score: {score} / 5 | Your time : {second} sec. (Press Enter to continue)");
     Console.ReadLine();
 
-    previousGames.Add($"{operation} | Difficulty: {difficulty} | Score: {score} | Time : {second} ");
+    previousGames.Add($"{gameLogStart} | Difficulty: {difficulty} | Score: {score} | Time : {second} ");
 
     second = 0;
 }
